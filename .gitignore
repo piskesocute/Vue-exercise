@@ -1,0 +1,47 @@
+/04-VUE-CLI-Router-Components/props-demo/node_modules
+/04-VUE-CLI-Router-Components/vue-test-mike/node_modules
+
+.DS_Store
+node_modules
+/dist
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+/00-課前準備
+/01-JS-ES6/example
+/02-VUE-BASE/example
+/03-VUE-FORM/example
+/05-VUE-Router-Example/example
+/06-Vue-Nested-Routes/example
+/07-Vuex/example
+/08-Vuex_API/example
+/09-Composition-API/example
+/10-other/vue-other
+/10-other/issues.pptx
+/09-Composition-API/Composition-API.pptx
+/08-Vuex_API/Vuex&API.pptx
+/07-Vuex/vuex.pptx
+/06-Vue-Nested-Routes/vue-cli.pptx
+/05-VUE-Router-Example/vue-cli.pptx
+/04-VUE-CLI-Router-Components/vue-cli.pptx
+/03-VUE-FORM/vue-form.pptx
+/00-課前準備/vscode.pptx
+/01-JS-ES6/JAVASCRIPT-ES6.pptx
+/02-VUE-BASE/vue-base.pptx
