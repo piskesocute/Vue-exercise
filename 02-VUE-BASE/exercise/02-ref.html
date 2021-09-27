@@ -7,16 +7,27 @@
   </head>
   <body>
     <div id="app">
-      <h1></h1>
+      <h1>{{text}}</h1>
     </div>
     <script src="./js/vue.js"></script>
     <script>
+      const { ref } = Vue;
+      //解構賦值把ref獨立出來
       const App = {
+
         setup() {
-          return {};
+          //ref綁定資料與畫面
+          const text = ref("hello vue")
+          setTimeout(() => {
+            text.value = "evan"
+            }, 1000);
+
+          return {text};
         },
       };
+
       Vue.createApp(App).mount("#app");
+
     </script>
   </body>
 </html>
