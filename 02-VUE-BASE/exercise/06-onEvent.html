@@ -8,19 +8,29 @@
   <body>
     <div id="app">
       <h1>{{num}}</h1>
-      <button>Add</button>
-      <button>Remove</button>
+      <button v-on:click="AddFn">Add</button>
+      <!-- <h1>{{numReact}}</h1>
+      <button v-on:click="AddFn">AddReact</button> -->
+      <button @click = "RemoveFn">Remove</button>
     </div>
     <script src="./js/vue.js"></script>
     <script>
       const { ref , reactive }=Vue;
       const num=ref(0)
+      const numReact = reactive({ idx:0 })
       const App = {
         setup() {
+
           const AddFn=()=>{
             num.value++;
+            // numReact.idx++;
           }
-          return {num,AddFn};
+          const RemoveFn=()=>{
+            if(num.value!=0) num.value--;
+          
+          }
+
+          return {num,AddFn,RemoveFn};
         },
       };
       Vue.createApp(App).mount("#app");
