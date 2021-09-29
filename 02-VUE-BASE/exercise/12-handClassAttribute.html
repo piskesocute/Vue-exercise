@@ -62,8 +62,8 @@
   </head>
   <body>
     <div id="app">
-      <a class="title">課程列表</a>
-      <ul class="box">
+      <a class="title" @click="openFn">課程列表</a>
+      <ul  :class=["box",{open:isOpen}]>
         <li v-for="(list, idx) in listArr" :key="list.name">
           {{idx + 1}}. {{list.name}}
         </li>
@@ -71,7 +71,9 @@
     </div>
     <script src="./js/vue.js"></script>
     <script>
-      const { reactive } = Vue;
+      const { ref, reactive } = Vue;
+      const isOpen = ref(false)
+
       const App = {
         setup() {
           const listArr = reactive([
@@ -82,8 +84,12 @@
             { name: "現代 JavaScript 職人之路｜中階實戰篇" },
           ]);
 
+          const openFn=()=>{
+            isOpen.value = !isOpen.value;
+          }
+
           return {
-            listArr,
+            listArr,openFn,isOpen,
           };
         },
       };
