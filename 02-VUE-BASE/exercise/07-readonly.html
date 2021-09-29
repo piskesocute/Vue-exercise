@@ -18,15 +18,19 @@
     </div>
     <script src="./js/vue.js"></script>
     <script>
-      const { reactive } = Vue;
+      const { reactive , readonly } = Vue;
       const App = {
         setup() {
           const Num = reactive({ idx: 0 });
+          const copyNum = readonly(Num);
           const AddFn = () => {
             Num.idx++;
           };
 
-          const Test = () => {};
+          const Test = () => {
+            copyNum.idx ++;
+
+          };
 
           return { Num, AddFn, Test };
         },
