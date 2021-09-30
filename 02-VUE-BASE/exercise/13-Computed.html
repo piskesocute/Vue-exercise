@@ -61,7 +61,7 @@
     <div id="app">
       <a @click="HandListShow" class="title">課程列表</a>
       <ul :style="{height:domH}" class="box">
-        <li v-for="(list, idx) in listArr" :key="list">{{list.name}}</li>
+        <li v-for="(list, idx) in newArr" :key="list.course">{{list.course}}</li>
       </ul>
     </div>
     <script src="./js/vue.js"></script>
@@ -86,18 +86,29 @@
             isOpen.value = !isOpen.value;
              
           };
-          const hi ="1111";
+          
           const domH = computed(()=>{
-            if(isOpen.value){
-              return`${listArr.length*40}px`}
-            return 0;
+            return isOpen.value ? `${listArr.length*40}px`:0 ;
           })
+          const domM = ()=>{
+            return isOpen.value ? `${listArr.length*40}px`:0 ;
+          }
 
+          const newArr =computed(()=>{
+            const map = listArr.map((item)=>{
+              return {course:`${item.name} $:${item.money}`};
+            });
+            return map;
+          }); 
+
+          console.log(newArr);
           return {
             isOpen,
             listArr,
             HandListShow,
             domH,
+            domM,
+            newArr,
           };
         },
       };
