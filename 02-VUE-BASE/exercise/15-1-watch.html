@@ -10,9 +10,32 @@
 
     <script src="./js/vue.js"></script>
     <script>
-      const { ref, reactive } = Vue;
+      const { ref, reactive, watch } = Vue;
       const App = {
         setup() {
+
+          const idx = ref(0)
+          const data = reactive({idx:0})
+
+          watch(data.id,(newIdx,oldIdx)=>{
+            console.log({new:newIdx,old:oldIdx})
+          })
+
+          setInterval(()=>{
+            data.idx++
+          },1000)
+
+
+          watch(idx,(newIdx,oldIdx)=>{
+            console.log({new:newIdx,old:oldIdx})
+          })
+
+          setInterval(()=>{
+            idx.value++;
+          },1000)
+
+
+          
           return {};
         },
       };
