@@ -60,13 +60,13 @@
   <body>
     <div id="app">
       <a @click="HandListShow" class="title">課程列表</a>
-      <ul class="box">
+      <ul :style="{height:domH}" class="box">
         <li v-for="(list, idx) in listArr" :key="list">{{list.name}}</li>
       </ul>
     </div>
     <script src="./js/vue.js"></script>
     <script>
-      const { ref, reactive } = Vue;
+      const { ref, reactive, computed } = Vue;
       const App = {
         setup() {
           const isOpen = ref(true);
@@ -79,16 +79,25 @@
             { name: "職人必修的RWD 網頁入門班", money: 900 },
             { name: "HTML5+Animate CC 網頁動畫與遊戲互動", money: 2000 },
             { name: "現代 JavaScript 職人之路｜面試篇", money: 1800 },
-          ]);
+          ]); 
+          console.log(listArr.length)
 
           const HandListShow = () => {
             isOpen.value = !isOpen.value;
+             
           };
+          const hi ="1111";
+          const domH = computed(()=>{
+            if(isOpen.value){
+              return`${listArr.length*40}px`}
+            return 0;
+          })
 
           return {
             isOpen,
             listArr,
             HandListShow,
+            domH,
           };
         },
       };

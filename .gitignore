@@ -45,3 +45,6 @@ pnpm-debug.log*
 /00-課前準備/vscode.pptx
 /01-JS-ES6/JAVASCRIPT-ES6.pptx
 /02-VUE-BASE/vue-base.pptx
+/.eslintrc.json
+/package.json
+/package-lock.json
