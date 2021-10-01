@@ -19,6 +19,19 @@
           const refObj = ref({ idx: 0 });
           const reactiveObj = reactive({ idx: 0 });
 
+          watch(refObj,(newIdx)=>{
+            console.log(newIdx);
+          })
+
+          watch(reactiveObj,(newIdx)=>{
+            console.log(newIdx);
+          })//只有這個被監控
+
+            setTimeout(()=>{
+              refObj.value.idx++
+              reactiveObj.idx++
+            },1000)
+
           return { refObj, reactiveObj };
         },
       };

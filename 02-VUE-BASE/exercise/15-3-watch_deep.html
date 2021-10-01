@@ -17,9 +17,11 @@
 
           watch(data, (newVal) => {
             console.log(newVal);
-          });
+          },{deep:true});
 
-          setTimeout(() => {}, 1000);
+          setTimeout(() => {
+            data.value["user"]="evan"
+          }, 1000);
 
           return {};
         },
