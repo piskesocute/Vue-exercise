@@ -10,28 +10,74 @@
     <div id="app">
       <div class="wait">
         <ul>
-          <li>
-            <img src="" alt="" />
+          <li v-for="(item, idx) in todoWait.content" :key="item.url" @click="handClick(item, idx)">
+            <img :src="item.url" alt="" />
           </li>
         </ul>
       </div>
       <div class="carried">
         <ul>
-          <li>
-            <img alt="" />
+          <li v-for="(item, idx) in todoOver.content" :key="item.url" @click="resetClick(item, idx)">
+            <img  :src="item.url" alt="" />
           </li>
         </ul>
       </div>
-      <div class="winPage">
+      <div :class='["winPage", {open:isOpen}]'>
         <h1>闖關成功</h1>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="./js/vue.js"></script>
     <script>
+      const { reactive, onMounted, watch, ref}=Vue;
       const app = {
         setup() {
-          return {};
+
+          let rightNumber = null;
+          const totalIdx =ref(0) 
+          const todoWait = reactive({content:[]});
+          const todoOver = reactive({content:[]});
+          const isOpen = ref(false)
+
+          const handClick = (item,idx)=>{
+            todoOver.content.push(item);
+            todoWait.content.splice(idx,1);
+          };
+
+          const resetClick = (item,idx)=>{
+            todoWait.content.push(item);
+            todoOver.content.splice(idx,1);
+          };
+
+          watch(
+            ()=>todoOver.content,
+            (newIdx)=>{
+              totalIdx.value = 0
+              newIdx.forEach((item,idx)=>{
+                if(item.idx === idx){
+                  totalIdx.value++
+                }
+              });
+            },{deep:true}
+          )
+          
+          watch(totalIdx,(newIdx)=>{
+            console.log(newIdx);
+            if(newIdx=== rightNumber){
+              isOpen.value = true;
+              console.log(totalIdx);
+            }
+          })
+
+
+          onMounted(() => {
+            axios.get("./api/puzzle.json")
+            .then((res)=>{
+              todoWait.content=res.data;
+              rightNumber = res.data.length;
+            });
+          });
+          return {todoWait, handClick, todoOver, resetClick, isOpen};
         },
       };
       Vue.createApp(app).mount("#app");
