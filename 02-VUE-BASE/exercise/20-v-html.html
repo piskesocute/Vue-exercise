@@ -24,9 +24,11 @@
     <script src="./js/vue.js"></script>
     <script>
       const { onMounted , ref} = Vue;
-      const html = ref('');
       const app = {
         setup() {
+          const html = ref('');
+
+          
           onMounted(() => {
           axios.get('https://vue-lessons-api.herokuapp.com/dom/content').then(res=>{
             html.value = res.data;
