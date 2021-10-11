@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="app">
-      <div>
+      <div v-if="!isSubmit">
         <div class="input-box">
           <p>NAME</p>
           <input
@@ -17,7 +17,7 @@
             placeholder="輸入使用者名稱"
             v-model="registered.username"
           />
-          <p class="error"></p>
+          <p class="error" v-if="errorData.username" >{{errorData.username}}</p>
         </div>
         <div class="input-box">
           <p>PASSWORD</p>
@@ -26,7 +26,7 @@
             placeholder="輸入密碼"
             v-model="registered.password"
           />
-          <p class="error"></p>
+          <p class="error" v-if="errorData.password">{{errorData.password}}</p>
         </div>
         <div class="input-box">
           <p>E-MAIL</p>
@@ -35,7 +35,7 @@
             placeholder="輸入email"
             v-model="registered.email"
           />
-          <p class="error"></p>
+          <p class="error" v-if="errorData.email">{{errorData.email}}</p>
         </div>
         <div class="input-box">
           <p>年齡</p>
@@ -55,10 +55,10 @@
           <input type="checkbox" id="checkbox" v-model="registered.terms" />
           <label for="checkbox">我已閱讀使用者條款</label>
         </div>
-        <a class="btn">送出</a>
+        <a class="btn" @click="submit">送出</a>
       </div>
       <div>
-        <h1>註冊成功</h1>
+        <h1 v-if="isSubmit">註冊成功</h1>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
@@ -74,9 +74,12 @@
       }
      -->
     <script>
-      const { reactive } = Vue;
+      const { reactive, ref} = Vue;
       const app = {
+
         setup() {
+          const isSubmit = ref(false)
+          const errorData = reactive({})
           const registered = reactive({
             username: "",
             password: "",
@@ -86,7 +89,32 @@
             terms: false,
           });
 
-          return { registered };
+          const errorRandom =(errObj)=>{
+            Object.keys(errorData).forEach((lastKey)=>{
+              errorData[lastKey]=""
+            }
+            )
+
+            Object.keys(errObj).forEach(
+              (errObjKey) => {
+                errorData[errObjKey] = errObj[errObjKey];      
+              })            
+          }
+
+          const submit = ()=>{
+            axios.post('https://vue-lessons-api.herokuapp.com/auth/registered ',registered)
+          .then((response) =>{
+            isSubmit.value = true;
+            console.log(response);
+          })
+           
+          .catch((error)=>{
+            errorRandom(error.response.data.error_message)
+            
+          });
+          }
+
+          return { registered , submit , isSubmit , errorData};
         },
       };
 
