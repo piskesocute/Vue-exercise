@@ -4,14 +4,24 @@ export default {};
 <template>
   <article>
     <div>
-      <h3>Responsive Web Design</h3>
-      <p>
+      <!-- <h3>
+        Responsive Web Design
+        </h3> -->
+      <ul>
+        <p>test</p>
+        <li><p>1</p></li>
+        <li><p>2</p></li>
+        <li><p>3</p></li>
+        <li><p>4</p></li>
+      </ul>
+      <!-- <p>
         選用對的html5標籤除了在閱讀 html
         原始碼更加順暢外，也有助於google搜尋引擎排名順序，SEO效果的提升
-      </p>
+      </p> -->
     </div>
   </article>
 </template>
+
 <style lang="scss" scoped>
 h6 {
   color: red;
@@ -59,15 +69,4 @@ article {
     }
   }
 }
-// article > div > h3 {
-//   text-align: center;
-//   font-size: 48px;
-//   color: #fff;
-// }
-// article > div > p {
-//   text-align: center;
-//   font-size: 14px;
-//   color: #fff;
-//   line-height: 3em;
-// }
 </style>

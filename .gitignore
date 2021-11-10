@@ -49,3 +49,5 @@ pnpm-debug.log*
 /package.json
 /package-lock.json
 /02-VUE-BASE/~$vue-base.pptx
+/05-VUE-Router-Example/exercise/node_modules
+/06-Vue-Nested-Routes/exercise/vue-nested-routes/node_modules

@@ -1,22 +1,49 @@
 <script>
+import axios from "axios";
+import { onMounted, reactive } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
 export default {
   setup() {
-    return {};
+    const router = useRouter();
+    const courseList = reactive({ data: {} });
+    const goNewWeb = (id) => {
+      router.push({ path: `/courses/${id}` });
+    };
+    const goNewTab = (id) => {
+      const saveURL = router.resolve({ path: `/courses/${id}` });
+      window.open(saveURL.href);
+    };
+    onMounted(() => {
+      axios
+        .get("https://vue-lessons-api.herokuapp.com/courses/list")
+        .then((res) => {
+          courseList.data = res.data;
+          // console.log(courseList.data);
+        });
+    });
+
+    return { courseList, goNewWeb, goNewTab };
   },
 };
 </script>
 <template>
   <div id="courses">
-    <a class="card">
-      <img src="" alt="" />
+    <a
+      class="card"
+      v-for="item in courseList.data"
+      :key="item.id"
+      @click.left="goNewWeb(item.id)"
+      @click.middle="goNewTab(item.id)"
+    >
+      <img :src="item.photo" alt="" />
       <div class="content">
-        <h1></h1>
+        <h1>{{ item.name }}</h1>
         <div class="teacher-box">
           <div class="teach-img">
-            <img class="teacher" src="" alt="" />
-            <p></p>
+            <img class="teacher" :src="item.teacher.img" alt="" />
+            <p>{{ item.teacher.name }}</p>
           </div>
-          <h2>NTD:</h2>
+          <h2>NTD:{{ item.money }}</h2>
         </div>
       </div>
     </a>
