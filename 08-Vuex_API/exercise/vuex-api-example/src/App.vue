@@ -1,6 +1,6 @@
 <script>
 import { onMounted } from "vue";
-import { useStore } from "vuex";
+import { Store, useStore } from "vuex";
 import ImageBox from "./components/ImageBox/index.vue";
 import LoadingBar from "./components/LoadingBar.vue";
 export default {
@@ -11,9 +11,26 @@ export default {
   setup() {
     const store = useStore();
 
-    const handImgLoad = (imgArr) => {};
+    const handImgLoad = (imgArr) => {
+      let i = 0;
+      imgArr.forEach((image) => {
+        const imgs = new Image();
+        imgs.src = image.url;
+        imgs.onload = () => {
+          i++;
+          console.log(i === imgArr.length);
 
-    const init = () => {};
+          store.dispatch("dataState", i === imgArr.length);
+          // isLoad.value = i === photo.arr.length;
+        };
+      });
+    };
+
+    const init = () => {
+      store.dispatch("getApi").then((res) => {
+        handImgLoad(res);
+      });
+    };
 
     onMounted(() => {
       init();
