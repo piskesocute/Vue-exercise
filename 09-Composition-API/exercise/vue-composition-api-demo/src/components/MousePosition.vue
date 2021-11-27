@@ -1,7 +1,9 @@
 <script>
+import { mouseMovePosition } from "../composition-api/useMousePosition";
 export default {
   setup() {
-    return {};
+    const { x, y } = mouseMovePosition();
+    return { x, y };
   },
 };
 </script>
@@ -9,7 +11,7 @@ export default {
 <template>
   <div class="box">
     <h1>Mouse Position</h1>
-    <h2>x: y:</h2>
+    <h2>x:{{ x }} y:{{ y }}</h2>
   </div>
 </template>
 
